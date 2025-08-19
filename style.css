@@ -1,0 +1,52 @@
+body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background-color: #232323;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ddd;
+    }
+
+    .sound {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .sound-name {
+      font-weight: bold;
+      color: #ddd;
+    }
+    audio {
+        max-width: 200px; /* small on desktop */
+    }
+
+    #search-box {
+        width: 100%;
+        max-width: 800px;   /* match the max width of your sound list */
+        padding: 12px;
+        margin: 0 auto 15px auto;  /* center it with auto left/right margins */
+        display: block;     /* ensures margin auto works */
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    @media screen and (max-width: 600px) {
+    .sound {
+        flex-direction: column; /* stack name and audio vertically */
+        align-items: flex-start;
+    }
+  
+    audio {
+        width: 100%; /* stretch audio player to full width */
+        max-width: 100%;
+    }
+    }
