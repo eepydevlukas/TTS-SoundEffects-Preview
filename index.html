@@ -34,6 +34,7 @@
 </head>
 <body>
   <h1>Sound Effects Library</h1>
+  <input type="text" id="search-box" placeholder="Search sounds..." style="width: 100%; padding: 8px; margin-bottom: 15px;">
   <div id="sound-list"></div>
 
   <script>
@@ -47,22 +48,37 @@
 
     const soundListDiv = document.getElementById('sound-list');
 
-    sounds.forEach(filename => {
-      const container = document.createElement('div');
-      container.className = 'sound';
+    const searchBox = document.getElementById('search-box');
 
-      const name = document.createElement('span');
-      name.className = 'sound-name';
-      name.textContent = filename;
+    function renderSounds(filter = "") {
+        soundListDiv.innerHTML = ""; // Clear previous list
+        sounds
+        .filter(filename => filename.toLowerCase().includes(filter.toLowerCase()))
+        .forEach(filename => {
+        const container = document.createElement('div');
+        container.className = 'sound';
 
-      const audio = document.createElement('audio');
-      audio.controls = true;
-      audio.src = `sounds/${filename}` + ".mp3"; // Assuming your files are in /sounds folder
+        const name = document.createElement('span');
+        name.className = 'sound-name';
+        name.textContent = filename;
 
-      container.appendChild(name);
-      container.appendChild(audio);
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = `sounds/${filename}` + ".mp3";
 
-      soundListDiv.appendChild(container);
+        container.appendChild(name);
+        container.appendChild(audio);
+
+        soundListDiv.appendChild(container);
+        });
+    }
+
+    // Initial render
+    renderSounds();
+
+    // Update as user types
+    searchBox.addEventListener('input', () => {
+    renderSounds(searchBox.value);
     });
   </script>
 </body>
