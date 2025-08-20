@@ -1,44 +1,35 @@
- // List of your audio file names
-    const sounds = [
-      "falsch",
-      "metal pipe",
-      "vine boom",
-      "rizz",
-      "wow"
-      // Add more files here
-    ];
-
+fetch("sounds.json")
+  .then(response => response.json())
+  .then(sounds => {
     const soundListDiv = document.getElementById('sound-list');
-
     const searchBox = document.getElementById('search-box');
 
     function renderSounds(filter = "") {
-        soundListDiv.innerHTML = ""; // Clear previous list
-        sounds
+      soundListDiv.innerHTML = "";
+      sounds
         .filter(filename => filename.toLowerCase().includes(filter.toLowerCase()))
         .forEach(filename => {
-        const container = document.createElement('div');
-        container.className = 'sound';
+          const container = document.createElement('div');
+          container.className = 'sound';
 
-        const name = document.createElement('span');
-        name.className = 'sound-name';
-        name.textContent = filename;
+          // 🔹 Remove extension for display
+          const displayName = filename.replace(/\.[^/.]+$/, "");
 
-        const audio = document.createElement('audio');
-        audio.controls = true;
-        audio.src = `sounds/${filename}` + ".mp3";
+          const name = document.createElement('span');
+          name.className = 'sound-name';
+          name.textContent = displayName;
 
-        container.appendChild(name);
-        container.appendChild(audio);
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.src = `sounds/${filename}`;
 
-        soundListDiv.appendChild(container);
+          container.appendChild(name);
+          container.appendChild(audio);
+
+          soundListDiv.appendChild(container);
         });
     }
 
-    // Initial render
     renderSounds();
-
-    // Update as user types
-    searchBox.addEventListener('input', () => {
-    renderSounds(searchBox.value);
-    });
+    searchBox.addEventListener('input', () => renderSounds(searchBox.value));
+  });
