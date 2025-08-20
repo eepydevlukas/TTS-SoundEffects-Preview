@@ -1,0 +1,11 @@
+on: push
+
+jobs:
+  generate-json:
+    runs-on: ubuntu-latest
+    steps:
+    - name: generate-json
+      run: json_edit.py
+  commit-changes:
+    runs-on: ubuntu-lates
+    needs: generate-json
