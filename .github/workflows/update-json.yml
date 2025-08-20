@@ -21,7 +21,7 @@ jobs:
           python-version: '3.x'
 
       - name: Generate sounds.json
-        run: python generate_sounds.py
+        run: python json-edit.py
 
       - name: Commit and push changes
         run: |
