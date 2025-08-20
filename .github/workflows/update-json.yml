@@ -1,11 +1,32 @@
-on: push
+name: Update sounds.json
+
+on:
+  push:
+    branches:
+      - main   # or "master", depending on your default branch
 
 jobs:
-  generate-json:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: generate-json
-      run: json_edit.py
-  commit-changes:
-    runs-on: ubuntu-lates
-    needs: generate-json
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Generate sounds.json
+        run: python generate_sounds.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sounds.json
+          git commit -m "Update sounds.json [auto]" || echo "No changes to commit"
+          git push
