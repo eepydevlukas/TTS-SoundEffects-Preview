@@ -25,8 +25,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "eepylukasdev"
+          git config --global user.email "lukaseepydev@gmail.com"
           git add sounds.json
           git commit -m "Update sounds.json [auto]" || echo "No changes to commit"
           git push
